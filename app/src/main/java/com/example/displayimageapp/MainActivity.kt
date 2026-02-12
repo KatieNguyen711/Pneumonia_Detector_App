@@ -1,11 +1,15 @@
 package com.example.displayimageapp
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,29 +19,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button = findViewById<Button>(R.id.click_button)
+        val clickButton = findViewById<Button>(R.id.click_button)
+        val imageButton = findViewById<ImageButton>(R.id.addImageButton)
         val counter = findViewById<TextView>(R.id.counter)
 
         // initialize counter text
         counter.text = "Count: $count"
 
-        button.setOnClickListener {
+        clickButton.setOnClickListener {
             count++
             counter.text = "Count: $count"
 
         }
-    }/*
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val button = findViewById<ImageButton>(R.id.addImageButton)
-        val display = findViewById<ImageView>(R.id.displayXRay)
-
-        button.setOnClickListener{
-            display.setImageResource(R.drawable.xray)
+        // Registers a photo picker activity launcher in single-select mode.
+        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            // Callback is invoked after the user selects a media item or closes the
+            // photo picker.
+            if (uri != null) {
+                Log.d("PhotoPicker", "Selected URI: $uri")
+                val imageView = findViewById<ImageView>(R.id.displayXRay)
+                imageView.setImageURI(uri)
+            } else {
+                Log.d("PhotoPicker", "No media selected")
+            }
         }
 
-
-    }*/
+        // Launch the photo picker and let the user choose only images.
+        imageButton.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+    }
 }
