@@ -26,6 +26,7 @@
         android:layout_marginTop="368dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/greeting"
         app:layout_constraintVertical_bias="0.0"
@@ -53,6 +54,33 @@
         app:layout_constraintTop_toBottomOf="@+id/greeting"
         app:layout_constraintVertical_bias="0.86"
         app:srcCompat="@android:drawable/screen_background_dark" />
+
+    <ImageButton
+        android:id="@+id/processButton"
+        android:layout_width="132dp"
+        android:layout_height="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.121"
+        app:srcCompat="@android:drawable/stat_notify_sync" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="167dp"
+        android:layout_height="76dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="@string/Results"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/processButton"
+        app:layout_constraintVertical_bias="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
