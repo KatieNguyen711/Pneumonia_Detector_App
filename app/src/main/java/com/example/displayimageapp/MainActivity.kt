@@ -18,19 +18,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val clickButton = findViewById<Button>(R.id.click_button)
         val imageButton = findViewById<ImageButton>(R.id.addImageButton)
-        val counter = findViewById<TextView>(R.id.counter)
 
-        // initialize counter text
-        counter.text = "Count: $count"
-
-        clickButton.setOnClickListener {
-            count++
-            counter.text = "Count: $count"
-
-        }
         // Registers a photo picker activity launcher in single-select mode.
         val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // Callback is invoked after the user selects a media item or closes the
