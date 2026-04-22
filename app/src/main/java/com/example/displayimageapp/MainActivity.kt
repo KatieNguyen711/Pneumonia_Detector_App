@@ -82,12 +82,13 @@ class MainActivity : AppCompatActivity() {
 
         processButton.setOnClickListener {
             val uri = selectedImageUri
-            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
 
             if (uri == null) {
                 results.setText("No Image")
                 return@setOnClickListener
             }
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+
             if(!isBlackAndWhite(bitmap)){
                 results.setText("Image is not valid. Please input a clear X-Ray.")
                 return@setOnClickListener
