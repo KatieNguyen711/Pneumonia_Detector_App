@@ -21,6 +21,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.provider.MediaStore
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,15 +55,41 @@ class MainActivity : AppCompatActivity() {
         imageButton.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
+        /**
+         * Returns true if the bitmap contains any color.
+         * Returns false if it is entirely black, white, or gray.
+         */
+        fun isBlackAndWhite(bitmap: Bitmap): Boolean {
+            val width = bitmap.width
+            val height = bitmap.height
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    val pixel = bitmap.getPixel(x, y)
+                    val r = (pixel shr 16) and 0xFF
+                    val g = (pixel shr 8) and 0xFF
+                    val b = pixel and 0xFF
+
+                    if (r != g || g != b) {
+                        return false
+                    }
+                }
+            }
+            return true
+        }
 
         val processButton = findViewById<ImageButton>(R.id.processButton)
         val results = findViewById<EditText>(R.id.results)
 
         processButton.setOnClickListener {
             val uri = selectedImageUri
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
 
             if (uri == null) {
                 results.setText("No Image")
+                return@setOnClickListener
+            }
+            if(!isBlackAndWhite(bitmap)){
+                results.setText("Image is not valid. Please input a clear X-Ray.")
                 return@setOnClickListener
             }
 
