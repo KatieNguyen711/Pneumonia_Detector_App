@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val processButton = findViewById<ImageButton>(R.id.processButton)
-        val results = findViewById<EditText>(R.id.results)
+        val results = findViewById<TextView>(R.id.results)
 
         processButton.setOnClickListener {
             val uri = selectedImageUri
